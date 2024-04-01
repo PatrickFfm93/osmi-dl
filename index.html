@@ -1,0 +1,86 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Patrick Bichiou - Deep Learning EA1</title>
+  <link rel="stylesheet" href="css/index.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
+  <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.30.0.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+  <h1>Patrick Bichiou - Deep Learning EA1</h1>
+  <div class="grid-container">
+    <div class="grid-item" id="imageHandling">
+      <div class="grid-container">
+        <div class="grid-item" id="imageSelection">
+          <div id="imageSelectDiv">
+            <select name="images" id="imageSelect">
+              <option disabled selected value> -- Please select an image -- </option>
+              <optgroup label="Correct classification">
+                <option value="car">Car</option>
+                <option value="cat">Cat</option>
+                <option value="dog">Dog</option>
+              </optgroup>
+              <optgroup label="Wrong classification">
+                <option value="horse">Horse</option>
+                <option value="rocket">Rocket</option>
+                <option value="pear">Pear</option>
+              </optgroup>
+            </select>
+          </div>
+          <div id="imageUploadDiv">
+            <label for="imageUpload">Upload Image</label>
+            <input type="file" accept="image/*;capture=camera" id="imageUpload" />    
+          </div>
+        </div>
+        <div class="grid-item" id="or">
+          <p>OR</p>
+        </div>
+        <div class="grid-item" id="imageDrop">
+          <div id="imageDropArea">
+            <p>Drag image to this <i>drop zone</i>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-item" id="classification">
+      <div id="image">
+        <img id="img">
+        <div id="message">Loading...</div>
+        <button id="classify">Classify</button>
+      </div>  
+    </div>
+    <div class="grid-item" id="plot">
+      <div class="tab">
+        <button class="tablinks" id="pieTab" onclick="changeChart(event, 'pieChart')">Pie Chart</button>
+        <button class="tablinks" id="barTab" onclick="changeChart(event, 'barChart')">Bar Chart</button>
+      </div>
+      <div id="pieChart" class="tabcontent"></div>
+      <div id="barChart" class="tabcontent"></div>
+    </div>
+    <div id="imageSrc">
+      <p>Image sources with correct classification:</p>
+      <ul>
+        <li>cat: https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcTZCSmCzmIPm0up8wmW566cK5w3sSTUChT5UnaU3VnFxrHwoRNSnks0xUBmj2r2oeJk</li>
+        <li>dog: https://www.stuttgarter-zeitung.de/media.media.9ca6ab91-ea15-4a8b-ae48-4694e2a84006.16x9_1024.jpg</li>
+        <li>car: car: https://image.stern.de/8424922/t/8I/v2/w1440/r0/-/30--artikel22517bild01jpg---b5e7066e38d38876.jpg</li>
+      </ul>
+      <p>Image sources with incorrect classification:</p>
+      <ul>
+        <li>horse: https://www.pferdefluesterei.de/wp-content/uploads/2014/09/Quarter_Horse_Slider.jpg</li>
+        <li>rocket: https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2020/11/copernicus_sentinel-6_lifts_off_on_a_spacex_falcon_9_rocket/22340698-1-eng-GB/Copernicus_Sentinel-6_lifts_off_on_a_SpaceX_Falcon_9_rocket_pillars.jpg</li>
+        <li>pear: https://www.genial-geniessen.com/wp-content/uploads/2020/05/Emotion-Birne-600x600.jpg</li>
+      </ul>
+    </div>
+    <div id="discussion"></div>
+    <div id="documentation"></div>
+  </div>
+  <script src="js/plot.js"></script>
+  <script src="js/classification.js"></script>
+</body>
+
+<!-- Classification in progress... -->
+</html>
