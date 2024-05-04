@@ -17,11 +17,31 @@ const classifyButton = document.getElementById("classify");
 const image = document.getElementById("img");
 const classificationDiv = document.getElementById("classification");
 const classifierOptions = {topk:6,};
-const  classifier = ml5.imageClassifier('MobileNet', classifierOptions, () => message.innerHTML = "Please upload an image!");
+const classifier = ml5.imageClassifier('MobileNet', classifierOptions, () => message.innerHTML = "Please upload an image!");
 
 /* event listeners */
-imageSelect.addEventListener("change", (e) => {
-  switch(e.target.value){
+imageUpload.addEventListener("drop", (e) => {
+  e.preventDefault();
+  img.src = URL.createObjectURL(e.dataTransfer.items[0].getAsFile());
+  imageDropArea.style.backgroundColor = "#fff";
+});
+
+imageUploadButton.addEventListener("change", (e) => {
+  img.src = URL.createObjectURL(e.target.files[0]);
+});
+
+img.addEventListener("load", () => {
+  message.innerHTML = "Image loaded successfully! Ready for classification...";
+  classifyButton.style.display="block";
+});
+
+classifyButton.addEventListener("click", () => {
+  message.innerHTML = "Classification in progress...";
+  classifier.classify(img, classificationResultHandler);
+});
+
+const selectedImage = (imageName) => {
+  switch(imageName){
     case "car":
       img.src = "assets/images/car.jpg";
       break;
@@ -43,38 +63,7 @@ imageSelect.addEventListener("change", (e) => {
     default:
       break; // do nothing if no valid option is selected.
   }
-});
-
-imageDropArea.addEventListener("drop", (e) => {
-  e.preventDefault();
-  img.src = URL.createObjectURL(e.dataTransfer.items[0].getAsFile());
-  imageDropArea.style.backgroundColor = "#fff";
-});
-
-imageDropArea.addEventListener("dragover", (e) => {
-  e.preventDefault();
-  imageDropArea.style.backgroundColor = "#add8e6";
-});
-
-imageDropArea.addEventListener("dragleave", (e) => {
-  e.preventDefault();
-  imageDropArea.style.backgroundColor = "#fff";
-});
-
-imageUploadButton.addEventListener("change", (e) => {
-  img.src = URL.createObjectURL(e.target.files[0]);
-});
-
-img.addEventListener("load", () => {
-  message.innerHTML = "Image loaded successfully! Ready for classification...";
-  classifyButton.style.display="block";
-});
-
-classifyButton.addEventListener("click", () => {
-  message.innerHTML = "Classification in progress...";
-  classifier.classify(img, classificationResultHandler);
-});
-
+};
 
 /* classification result function */
 const classificationResultHandler = (error, results) => {

@@ -1,86 +1,127 @@
 <html>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Patrick Bichiou - Deep Learning EA1</title>
-  <link rel="stylesheet" href="css/index.css">
+  <head>
+    <meta charset="UTF-8">
+    <title>Patrick Bichiou - Deep Learning EA1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/index.css">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
-  <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
-  <script src="https://cdn.plot.ly/plotly-2.30.0.min.js" charset="utf-8"></script>
-</head>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
+    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.30.0.min.js" charset="utf-8"></script>
+  </head>
 
-<body>
-  <h1>Patrick Bichiou - Deep Learning EA1</h1>
-  <div class="grid-container">
-    <div class="grid-item" id="imageHandling">
-      <div class="grid-container">
-        <div class="grid-item" id="imageSelection">
-          <div id="imageSelectDiv">
-            <select name="images" id="imageSelect">
-              <option disabled selected value> -- Please select an image -- </option>
-              <optgroup label="Correct classification">
-                <option value="car">Car</option>
-                <option value="cat">Cat</option>
-                <option value="dog">Dog</option>
-              </optgroup>
-              <optgroup label="Wrong classification">
-                <option value="horse">Horse</option>
-                <option value="rocket">Rocket</option>
-                <option value="pear">Pear</option>
-              </optgroup>
-            </select>
-          </div>
-          <div id="imageUploadDiv">
-            <label for="imageUpload">Upload Image</label>
-            <input type="file" accept="image/*;capture=camera" id="imageUpload" />    
-          </div>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Patrick Bichiou - Deep Learning</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">EA 1</a>
+            </li>
+          </ul>
         </div>
-        <div class="grid-item" id="or">
-          <p>OR</p>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="container">
+            <div class="row">
+              <label>Select an image </label>
+              <div class="row">
+                <div class="col">
+                  <img src="assets/images/car.jpg" class="img-thumbnail" alt="car" onclick="selectedImage('car')">
+                  <p>Car</p>
+                </div>
+                <div class="col">
+                  <img src="assets/images/cat.jpg" class="img-thumbnail" alt="cat" onclick="selectedImage('cat')">
+                  <p>Cat</p>
+                </div>
+                <div class="col">
+                  <img src="assets/images/dog.jpg" class="img-thumbnail" alt="dog" onclick="selectedImage('dog')">
+                  <p>Dog</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <img src="assets/images/horse.jpg" class="img-thumbnail" alt="horse" onclick="selectedImage('horse')">
+                  <p>Horse</p>
+                </div>
+                <div class="col">
+                  <img src="assets/images/rocket.jpg" class="img-thumbnail" alt="rocket" onclick="selectedImage('rocket')">
+                  <p>Rocket</p>
+                </div>
+                <div class="col">
+                  <img src="assets/images/pear.jpg" class="img-thumbnail" alt="pear" onclick="selectedImage('pear')">
+                  <p>Pear</p>
+                </div>
+              </div>
+            </div>
+          </div> 
         </div>
-        <div class="grid-item" id="imageDrop">
-          <div id="imageDropArea">
-            <p>Drag image to this <i>drop zone</i>.</p>
+        <div class="col-6">
+          <form method="post" action="#" id="#">
+            <div class="form-group files">
+              <label>Upload your file</label>
+              <input type="file" class="form-control" accept="image/*;capture=camera" id="imageUpload" >
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-6" id="classification">
+          <div id="image">
+            <img id="img">
+            <div id="message">Loading...</div>
+            <button id="classify">Classify</button>
+          </div>  
+        </div>
+        <div class="col-6">
+          <div class="grid-item" id="plot">
+            <div class="tab">
+              <button class="tablinks" id="pieTab" onclick="changeChart(event, 'pieChart')">Pie Chart</button>
+              <button class="tablinks" id="barTab" onclick="changeChart(event, 'barChart')">Bar Chart</button>
+            </div>
+            <div id="pieChart" class="tabcontent"></div>
+            <div id="barChart" class="tabcontent"></div>
           </div>
         </div>
       </div>
     </div>
-    <div class="grid-item" id="classification">
-      <div id="image">
-        <img id="img">
-        <div id="message">Loading...</div>
-        <button id="classify">Classify</button>
-      </div>  
-    </div>
-    <div class="grid-item" id="plot">
-      <div class="tab">
-        <button class="tablinks" id="pieTab" onclick="changeChart(event, 'pieChart')">Pie Chart</button>
-        <button class="tablinks" id="barTab" onclick="changeChart(event, 'barChart')">Bar Chart</button>
-      </div>
-      <div id="pieChart" class="tabcontent"></div>
-      <div id="barChart" class="tabcontent"></div>
-    </div>
-    <div id="imageSrc">
-      <p>Image sources with correct classification:</p>
-      <ul>
-        <li>cat: https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcTZCSmCzmIPm0up8wmW566cK5w3sSTUChT5UnaU3VnFxrHwoRNSnks0xUBmj2r2oeJk</li>
-        <li>dog: https://www.stuttgarter-zeitung.de/media.media.9ca6ab91-ea15-4a8b-ae48-4694e2a84006.16x9_1024.jpg</li>
-        <li>car: car: https://image.stern.de/8424922/t/8I/v2/w1440/r0/-/30--artikel22517bild01jpg---b5e7066e38d38876.jpg</li>
-      </ul>
-      <p>Image sources with incorrect classification:</p>
-      <ul>
-        <li>horse: https://www.pferdefluesterei.de/wp-content/uploads/2014/09/Quarter_Horse_Slider.jpg</li>
-        <li>rocket: https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2020/11/copernicus_sentinel-6_lifts_off_on_a_spacex_falcon_9_rocket/22340698-1-eng-GB/Copernicus_Sentinel-6_lifts_off_on_a_SpaceX_Falcon_9_rocket_pillars.jpg</li>
-        <li>pear: https://www.genial-geniessen.com/wp-content/uploads/2020/05/Emotion-Birne-600x600.jpg</li>
-      </ul>
-    </div>
-    <div id="discussion"></div>
-    <div id="documentation"></div>
-  </div>
-  <script src="js/plot.js"></script>
-  <script src="js/classification.js"></script>
-</body>
 
-<!-- Classification in progress... -->
+    <div class="container">
+      <div class="row" id="imageSrc">
+        <p>Image sources with correct classification:</p>
+        <ul>
+          <li>cat: https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcTZCSmCzmIPm0up8wmW566cK5w3sSTUChT5UnaU3VnFxrHwoRNSnks0xUBmj2r2oeJk</li>
+          <li>dog: https://www.stuttgarter-zeitung.de/media.media.9ca6ab91-ea15-4a8b-ae48-4694e2a84006.16x9_1024.jpg</li>
+          <li>car: https://image.stern.de/8424922/t/8I/v2/w1440/r0/-/30--artikel22517bild01jpg---b5e7066e38d38876.jpg</li>
+        </ul>
+        <p>Image sources with incorrect classification:</p>
+        <ul>
+          <li>horse: https://www.pferdefluesterei.de/wp-content/uploads/2014/09/Quarter_Horse_Slider.jpg</li>
+          <li>rocket: https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2020/11/copernicus_sentinel-6_lifts_off_on_a_spacex_falcon_9_rocket/22340698-1-eng-GB/Copernicus_Sentinel-6_lifts_off_on_a_SpaceX_Falcon_9_rocket_pillars.jpg</li>
+          <li>pear: https://www.genial-geniessen.com/wp-content/uploads/2020/05/Emotion-Birne-600x600.jpg</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row" id="discussion"></div>
+      <div class="row" id="documentation"></div>
+    </div>
+
+    <script src="js/plot.js"></script>
+    <script src="js/classification.js"></script>
+  </body>
 </html>
