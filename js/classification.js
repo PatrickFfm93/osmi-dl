@@ -17,7 +17,7 @@ const classifyButton = document.getElementById("classify");
 const image = document.getElementById("img");
 const classificationDiv = document.getElementById("classification");
 const classifierOptions = {topk:6,};
-const classifier = ml5.imageClassifier('MobileNet', classifierOptions, () => message.innerHTML = "Please upload an image!");
+const classifier = ml5.imageClassifier('MobileNet', classifierOptions, () => message.innerHTML = "Please upload or select an image!");
 
 /* event listeners */
 imageUpload.addEventListener("drop", (e) => {
