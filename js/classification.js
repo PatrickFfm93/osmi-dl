@@ -16,7 +16,7 @@ const classifyButton = document.getElementById("classify");
 const image = document.getElementById("img");
 const classificationDiv = document.getElementById("classification");
 const classifierOptions = {topk:6,};
-const classifier = ml5.imageClassifier('MobileNet', classifierOptions, () => message.innerHTML = "Please upload or select an image!");
+const classifier = ml5.imageClassifier('MobileNet', classifierOptions, () => message.innerHTML = "Bitte wählen Sie ein Bild aus oder laden Sie eins hoch!");
 
 /* event listeners */
 imageUpload.addEventListener("drop", (e) => {
@@ -29,12 +29,12 @@ imageUploadButton.addEventListener("change", (e) => {
 });
 
 img.addEventListener("load", () => {
-  message.innerHTML = "Image loaded successfully! Ready for classification...";
+  message.innerHTML = "Bilder erfolgreich geladen und bereit zur Klassifizierung...";
   classifyButton.style.display="block";
 });
 
 classifyButton.addEventListener("click", () => {
-  message.innerHTML = "Classification in progress...";
+  message.innerHTML = "Klassifizierung läuft...";
   classifier.classify(img, classificationResultHandler);
 });
 
