@@ -31,6 +31,9 @@
     </nav>
     <div class="container">
       <div class="row">
+        <h1>EA 1 - Deep Learning: Bilderkennung mit ml5</h1>
+      </div>
+      <div class="row">
         <div class="col-6">
           <div class="container">
             <div class="row">
@@ -78,13 +81,13 @@
         </div>
       </div>
     </div>
-
+    <hr>
     <div class="container">
       <div class="row">
         <div class="col-6" id="classification">
           <div id="image">
             <div id="message">Loading...</div>
-            <button id="classify">Classify</button>
+            <button type="button" class="btn btn-primary" id="classify">Classify</button>
             <img id="img">
           </div>  
         </div>
@@ -100,9 +103,35 @@
         </div>
       </div>
     </div>
-
+    <hr>
     <div class="container">
-      <div class="row" id="imageSrc">
+      <div class="row" id="discussion">
+        <h2>Diskussion</h2>
+        <p>
+          Ich habe festgestellt, dass die Ergebnisse bzw. deren Richtigkeit und Genauigkeit von Bild zu Bild sehr unterschiedlich sind. Im Beispiel der Katze
+          sogar zwischen vielen Rassen unterschieden, die aber alle Katzen sind. Andere Bilder, wie z.B. die Birne, werden nicht erkannt. Hier reichen die Ergebnisse
+          von Zitrone bis Tennisball. Besonders das Bild der Birne hat mich überrascht. Obwohl auch das Pferd und die Rakete nicht erkannt wurden, kann ich hier nachvollziehen, dass diese Bilder
+          Hier kann ich aber nachvollziehen, dass diese Bilder nicht perfekt gewählt sind, da das Suchobjekt nicht alleine steht. Da solche Algorithmen Pixel für Pixel durch das Bild gehen
+          sind gerade beim Pferd sehr viele Pixel grün, was das Ergebnis als Sauerampfer durchaus plausibel macht. Ich nehme mit, dass für eine korrekte Erkennung der
+          Deep-Learning-Algorithmus mit gutem Material gefüttert werden muss.
+        </p>
+      </div>
+      <div class="row" id="documentation">
+        <h2>Dokumentation</h2>
+        <p>
+          Diese Seite dient der Klassifizierung von Bildern mit Hilfe des ml5.js Frameworks. Dazu kann der Benutzer aus Bildern auswählen oder eigene Bilder
+          per Datei-Upload oder Drag & Drop in die Anwendung laden. Neben dem Bild und der Anzeige des Ergebnisses mit der höchsten Wahrscheinlichkeit,
+          werden im rechten Bereich der Seite die weiteren Ergebnisse mittels Diagrammen (Torten- und Balkendiagramm) dargestellt. Die Diagramme enthalten
+          die ersten sieben Ergebnisse mit ihren Wahrscheinlichkeiten.
+        </p>
+        <h3>Frameworks und Libraries</h3>
+        <ul>
+          <li><a href="https://ml5js.org/">ml5.js</a></li>
+          <li><a href="https://p5js.org/">p5.js</a></li>
+          <li><a href="https://plotly.com/javascript/">plotly</a></li>
+          <li><a href="https://getbootstrap.com/">bootstrap</a></li>
+        </ul>
+        <h3>Bildquellen</h3>
         <p>Image sources with correct classification:</p>
         <ul>
           <li>cat: https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcTZCSmCzmIPm0up8wmW566cK5w3sSTUChT5UnaU3VnFxrHwoRNSnks0xUBmj2r2oeJk</li>
@@ -116,11 +145,6 @@
           <li>pear: https://www.genial-geniessen.com/wp-content/uploads/2020/05/Emotion-Birne-600x600.jpg</li>
         </ul>
       </div>
-    </div>
-
-    <div class="container">
-      <div class="row" id="discussion"></div>
-      <div class="row" id="documentation"></div>
     </div>
 
     <script src="js/plot.js"></script>
