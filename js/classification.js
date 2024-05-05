@@ -21,7 +21,8 @@ const classifier = ml5.imageClassifier('MobileNet', classifierOptions, () => mes
 /* event listeners */
 imageUpload.addEventListener("drop", (e) => {
   e.preventDefault();
-  console.log(e.target.files[0]);
+  console.log(e.dataTransfer.items[0]);
+  console.log(e.dataTransfer.items[0].getAsFile());
   // if(e.dataTransfer.items[0].getAsFile().type == 'image') {
     img.src = URL.createObjectURL(e.dataTransfer.items[0].getAsFile());
   // } else {
