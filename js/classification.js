@@ -4,7 +4,7 @@
  *
  * @version 0.1
  * @author  Patrick Bichiou, https://github.com/PatrickFfm93
- * @updated 2024-04-01
+ * @updated 2024-05-05
  *
  */
 
@@ -12,7 +12,6 @@
 const message = document.getElementById("message");
 const imageSelect = document.getElementById("imageSelect");
 const imageUploadButton = document.getElementById("imageUpload");
-const imageDropArea = document.getElementById("imageDropArea");
 const classifyButton = document.getElementById("classify");
 const image = document.getElementById("img");
 const classificationDiv = document.getElementById("classification");
@@ -23,7 +22,6 @@ const classifier = ml5.imageClassifier('MobileNet', classifierOptions, () => mes
 imageUpload.addEventListener("drop", (e) => {
   e.preventDefault();
   img.src = URL.createObjectURL(e.dataTransfer.items[0].getAsFile());
-  imageDropArea.style.backgroundColor = "#fff";
 });
 
 imageUploadButton.addEventListener("change", (e) => {

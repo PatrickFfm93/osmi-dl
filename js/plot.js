@@ -4,10 +4,9 @@
  *
  * @version 0.1
  * @author  Patrick Bichiou, https://github.com/PatrickFfm93
- * @updated 2024-04-01
+ * @updated 2024-05-05
  *
  */
-
 const plot = (plotData) => {
     const plotDataValues = [];
     const plotDataLabels = [];
