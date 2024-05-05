@@ -42,21 +42,27 @@ const selectedImage = (imageName) => {
   switch(imageName){
     case "car":
       img.src = "assets/images/car.jpg";
+      image.style.border = "1px solid green";
       break;
     case "cat":
       img.src = "assets/images/cat.jpg";
+      image.style.border = "1px solid green";
       break;
     case "dog":
       img.src = "assets/images/dog.jpg";
+      image.style.border = "1px solid green";
       break;
     case "horse":
       img.src = "assets/images/horse.jpg";
+      image.style.border = "1px solid red";
       break;
     case "rocket":
       img.src = "assets/images/rocket.jpg";
+      image.style.border = "1px solid red";
       break;
     case "pear":
       img.src = "assets/images/pear.jpg";
+      image.style.border = "1px solid red";
       break;
     default:
       break; // do nothing if no valid option is selected.

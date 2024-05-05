@@ -48,6 +48,12 @@
     height: 150px;
     cursor: pointer;
 }
+.img-thumbnail-correct {
+    border: 1px solid green;
+}
+.img-thumbnail-incorrect {
+    border: 1px solid red;
+}
 
 #image{
     margin-top: 20px;
