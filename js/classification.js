@@ -21,23 +21,21 @@ const classifier = ml5.imageClassifier('MobileNet', classifierOptions, () => mes
 /* event listeners */
 imageUpload.addEventListener("drop", (e) => {
   e.preventDefault();
-  console.log(e.dataTransfer.items[0]);
-  console.log(e.dataTransfer.items[0].getAsFile());
-  // if(e.dataTransfer.items[0].getAsFile().type == 'image') {
+  if(e.dataTransfer.items[0].getAsFile().type.includes('image')) {
     img.src = URL.createObjectURL(e.dataTransfer.items[0].getAsFile());
-  // } else {
-  //   alert("Falscher Dateityp: Es sind nur Bilder erlaubt");
-  // }
+  } else {
+    alert("Falscher Dateityp: Es sind nur Bilder erlaubt");
+  }
+  
 });
 
 imageUploadButton.addEventListener("change", (e) => {
-  console.log(e.target.files[0]);
   e.preventDefault();
-  // if(e.target.files[0].type == 'image') {
+  if(e.target.files[0].type.includes('image')) {
    img.src = URL.createObjectURL(e.target.files[0]);
-  // } else {
-  //   alert("Falscher Dateityp: Es sind nur Bilder erlaubt");
-  // }
+  } else {
+    alert("Falscher Dateityp: Es sind nur Bilder erlaubt");
+  }
 });
 
 img.addEventListener("load", () => {
