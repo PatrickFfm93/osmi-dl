@@ -1,5 +1,4 @@
 const amountOfTrainData = 100;
-const amountHiddenLayers = 2;
 const amountOfNeuronsInHiddenLayer = 100;
 const hiddenLayerActivationFunction = "relu";
 const lossFunction = "meanSquaredError";
@@ -27,19 +26,39 @@ const indices = tf.util.createShuffledIndices(N);
 const trainIndices = indices.slice(0, halfN);
 const testIndices = indices.slice(halfN);
 
-const xTrain = trainIndices.map(i => x[i]);
-const yTrain = trainIndices.map(i => y[i]);
-const yTrainNoise = trainIndices.map(i => yNoise[i]);
+const xTrain = [];
+const yTrain = [];
+const yTrainNoise = [];
+trainIndices.forEach(i => {
+    xTrain.push(x[i]);
+    yTrain.push(y[i]);
+    yTrainNoise.push(yNoise[i]);
+  });
 
-const xTest = testIndices.map(i => x[i]);
-const yTest = testIndices.map(i => y[i]);
-const yTestNoise = testIndices.map(i => yNoise[i]);
+const xTest = [];
+const yTest = [];
+const yTestNoise = [];
+testIndices.forEach(i => {
+    xTest.push(x[i]);
+    yTest.push(y[i]);
+    yTestNoise.push(yNoise[i]);
+  });
 
 // Funktion zur Erstellung des Modells
 function createModel() {
     const model = tf.sequential();
     model.add(tf.layers.dense({ units: amountOfNeuronsInHiddenLayer, activation: hiddenLayerActivationFunction, inputShape: [1] }));
     model.add(tf.layers.dense({ units: amountOfNeuronsInHiddenLayer, activation: hiddenLayerActivationFunction }));
+    model.add(tf.layers.dense({ units: 1, activation: 'linear' }));
+    return model;
+}
+
+function createBestModel() {
+    const model = tf.sequential();
+    model.add(tf.layers.dense({ units: 100, activation: hiddenLayerActivationFunction, inputShape: [1] }));
+    model.add(tf.layers.dense({ units: 100, activation: hiddenLayerActivationFunction }));
+    model.add(tf.layers.dense({ units: 50, activation: hiddenLayerActivationFunction }));
+    model.add(tf.layers.dense({ units: 50, activation: hiddenLayerActivationFunction }));
     model.add(tf.layers.dense({ units: 1, activation: 'linear' }));
     return model;
 }
@@ -75,11 +94,11 @@ async function trainModelsAndPlot() {
     const modelUnnoised = createModel();
     const historyUnnoised = await trainModel(modelUnnoised, xTrain, yTrain, epochs);
 
-    const modelBestFit = createModel();
-    const historyBestFit = await trainModel(modelBestFit, xTrain, yTrainNoise, epochs);
+    const modelBestFit = createBestModel();
+    const historyBestFit = await trainModel(modelBestFit, xTrain, yTrainNoise, 150);
 
     const modelOverfit = createModel();
-    const historyOverfit = await trainModel(modelOverfit, xTrain, yTrainNoise, 200);
+    const historyOverfit = await trainModel(modelOverfit, xTrain, yTrainNoise, 400);
 
     const xsTest = tf.tensor1d(tf.util.flatten(xTest)); 
     const yPredUnnoisedTrain = Array.from(modelUnnoised.predict(tf.tensor1d(tf.util.flatten(xTrain))).dataSync());
@@ -92,14 +111,18 @@ async function trainModelsAndPlot() {
     const yPredOverfitTest = Array.from(modelOverfit.predict(xsTest).dataSync());
 
     // Plot original and noisy data
+    const seriesTrain = xTrain.map((xi, i) => ({ x: xi, y: yTrain[i] }));
+    const seriesTest = xTest.map((xi, i) => ({ x: xi, y: yTest[i] }));
     tfvis.render.scatterplot(
         document.getElementById('original-data'),
-        { values: x.map((xi, i) => ({ x: xi, y: y[i] })) },
+        { values: [seriesTrain, seriesTest], series: ['train', 'test']},
         { xLabel: 'x', yLabel: 'y', height: 300 }
     );
+    const seriesTrainNoisy = xTrain.map((xi, i) => ({ x: xi, y: yTrainNoise[i] }));
+    const seriesTestNoisy = xTest.map((xi, i) => ({ x: xi, y: yTestNoise[i] }));
     tfvis.render.scatterplot(
         document.getElementById('noisy-data'),
-        { values: x.map((xi, i) => ({ x: xi, y: yNoise[i] })) },
+        { values: [seriesTrainNoisy, seriesTestNoisy], series: ['train', 'test']},
         { xLabel: 'x', yLabel: 'y', height: 300 }
     );
 
