@@ -1,179 +1,115 @@
-<html>
-
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <title>Patrick Bichiou - Deep Learning EA1</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet" type="text/css">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="css/index.css">
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
-    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
-    <script src="https://cdn.plot.ly/plotly-2.30.0.min.js" charset="utf-8"></script>
-  </head>
 
-  <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Patrick Bichiou - Deep Learning</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">EA 1</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <div class="container">
-      <div class="row">
-        <h1>EA 1 - Deep Learning: Bilderkennung mit ml5</h1>
-      </div>
-      <div class="row">
-        <div class="col-6">
-          <div class="container">
-            <div class="row">
-              <h3>Bitte wählen Sie ein Bild aus</h3>
-              <p>Bilder mit korrekter Klassifizierung</p>
-              <div class="row">
-                <div class="col">
-                  <img src="assets/images/car.jpg" class="img-thumbnail img-thumbnail-correct" alt="car" onclick="selectedImage('car')">
-                  <p>Auto</p>
-                </div>
-                <div class="col">
-                  <img src="assets/images/cat.jpg" class="img-thumbnail img-thumbnail-correct" alt="cat" onclick="selectedImage('cat')">
-                  <p>Katze</p>
-                </div>
-                <div class="col">
-                  <img src="assets/images/dog.jpg" class="img-thumbnail img-thumbnail-correct" alt="dog" onclick="selectedImage('dog')">
-                  <p>Hund</p>
-                </div>
-              </div>
-              <p>Bilder mit falscher Klassifizierung</p>
-              <div class="row">
-                <div class="col">
-                  <img src="assets/images/horse.jpg" class="img-thumbnail img-thumbnail-incorrect" alt="horse" onclick="selectedImage('horse')">
-                  <p>Pferd</p>
-                </div>
-                <div class="col">
-                  <img src="assets/images/rocket.jpg" class="img-thumbnail img-thumbnail-incorrect" alt="rocket" onclick="selectedImage('rocket')">
-                  <p>Rakete</p>
-                </div>
-                <div class="col">
-                  <img src="assets/images/pear.jpg" class="img-thumbnail img-thumbnail-incorrect" alt="pear" onclick="selectedImage('pear')">
-                  <p>Birne</p>
-                </div>
-              </div>
-            </div>
-          </div> 
-        </div>
-        <div class="col-6">
-          <form method="post" action="#" id="#">
-            <div class="form-group files">
-              <h3>Laden Sie ein eigenes Bild hoch</h3>
-              <input type="file" class="form-control" accept="image/*" id="imageUpload" >
-            </div>
-          </form>
-        </div>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@latest/dist/tfjs-vis.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.3.1/lib/p5.js"></script>
+    
+    <title>Patrick Bichiou - Deep Learning EA2</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Patrick Bichiou - Deep Learning</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">EA 2</a>
+          </li>
+        </ul>
       </div>
     </div>
-    <hr>
-    <div class="container">
+  </nav>
+  <div class="container">
+    <div class="row">
+      <h1>EA 2 - Deep Learning: Regression mit FFNN</h1>
+    </div>
+  </div>
+
+  <div class="container">
       <div class="row">
-        <div class="col-6">
-          <div id="image">
-            <div id="message">Loading...</div>
-            <button type="button" class="btn btn-primary" id="classify">Classify</button>
-            <img id="img">
-          </div>  
+        <div class="col card">
+          <div class="card-body">
+            <h2 class="card-title">Input Data</h2>
+            <div id="inputDataPlot"></div>
+          </div>
+        </div>  
+        <div class="col card">
+          <div class="card-body">
+            <h2 class="card-title">Input Data with noise</h2>
+            <div id="inputDataPlotWithNoise"></div>
+          </div>
+        </div>          
+      </div>
+      <div class="row">
+        <div class="col card">
+          <div class="card-body">
+            <h2 class="card-title">Model: Train Data</h2>
+            <div id="resultPlotTrainData"></div>
+            <div id="trainDataPlot" ></div>
+          </div>
         </div>
-        <div class="col-6">
-          <div class="grid-item" id="plot">
-            <div class="tab">
-              <button class="tablinks" id="pieTab" onclick="changeChart(event, 'pieChart')">Pie Chart</button>
-              <button class="tablinks" id="barTab" onclick="changeChart(event, 'barChart')">Bar Chart</button>
-            </div>
-            <div id="pieChart" class="tabcontent"></div>
-            <div id="barChart" class="tabcontent"></div>
+        <div class="col card">
+          <div class="card-body">
+            <h2 class="card-title">Model: Test Data</h2>
+            <div id="resultPlotTestData"></div>
+            <div id="testDataPlot" ></div>
           </div>
         </div>
       </div>
-    </div>
-    <hr>
-    <div class="container">
-      <div class="row" id="discussion">
-        <h2>Diskussion</h2>
-        <p>
-          Ich habe festgestellt, dass die Ergebnisse bzw. deren Richtigkeit und Genauigkeit von Bild zu Bild sehr unterschiedlich sind. Im Beispiel der Katze
-          sogar zwischen vielen Rassen unterschieden, die aber alle Katzen sind. Andere Bilder, wie z.B. die Birne, werden nicht erkannt. Hier reichen die Ergebnisse
-          von Zitrone bis Tennisball. Besonders das Bild der Birne hat mich überrascht. Obwohl auch das Pferd und die Rakete nicht erkannt wurden, kann ich hier nachvollziehen, dass diese Bilder
-          Hier kann ich aber nachvollziehen, dass diese Bilder nicht perfekt gewählt sind, da das Suchobjekt nicht alleine steht. Da solche Algorithmen Pixel für Pixel durch das Bild gehen
-          sind gerade beim Pferd sehr viele Pixel grün, was das Ergebnis als Sauerampfer durchaus plausibel macht. Ich nehme mit, dass für eine korrekte Erkennung der
-          Deep-Learning-Algorithmus mit gutem Material gefüttert werden muss. Dies wird nochmal untermauert davon, dass selbst wenn das Resultat korrekt ist eine realtiv hohe Wahrscheinlichkeit
-          auf sonstige (others) fällt. Dieser Anteil ist bei den fehlerhaften Klassifizierungen nochmals deutlich höher.
-        </p>
-      </div>
-      <div class="row" id="documentation">
-        <h2>Dokumentation</h2>
-        <p>
-          Diese Seite dient der Klassifizierung von Bildern mit Hilfe des ml5.js Frameworks. Dazu kann der Benutzer aus Bildern auswählen oder eigene Bilder
-          per Datei-Upload oder Drag & Drop in die Anwendung laden. Neben dem Bild und der Anzeige des Ergebnisses mit der höchsten Wahrscheinlichkeit,
-          werden im rechten Bereich der Seite die weiteren Ergebnisse mittels Diagrammen (Torten- und Balkendiagramm) dargestellt. Die Diagramme enthalten
-          die ersten sieben Ergebnisse mit ihren Wahrscheinlichkeiten.
-          <br>
-          Das Design der Seite ist bewusst schlicht gehalten. Auch auf Farbflächen wurde verzichtet, da die Bilder im Vordergrund stehen. Die Befürchtung war, dass die Seite sonst durch die farbigen Bilder
-          zusammen mit den farbigen Diagrammen die Seite überladen hätte.
-        </p>
-        <h3>Frameworks und Libraries</h3>
-        <p>
-          <a href="https://ml5js.org/">ml5.js</a><br>
-          <a href="https://p5js.org/">p5.js</a><br>
-          <a href="https://plotly.com/javascript/">plotly</a><br>
-          <a href="https://getbootstrap.com/">bootstrap</a><br>
-        </p>
-        <h3>Bildquellen</h3>
-        <h4>Bilder mit korrekter Klassifizierung</h4>
-        <p>
-          Auto:
-          <a href="https://image.stern.de/8424922/t/8I/v2/w1440/r0/-/30--artikel22517bild01jpg---b5e7066e38d38876.jpg">
-            https://image.stern.de/8424922/t/8I/v2/w1440/r0/-/30--artikel22517bild01jpg---b5e7066e38d38876.jpg
-          </a>
-          <br>
-          Katze:
-          <a href="https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcTZCSmCzmIPm0up8wmW566cK5w3sSTUChT5UnaU3VnFxrHwoRNSnks0xUBmj2r2oeJk">
-            https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcTZCSmCzmIPm0up8wmW566cK5w3sSTUChT5UnaU3VnFxrHwoRNSnks0xUBmj2r2oeJk
-          </a>
-          <br>
-          Hund:
-          <a href="https://www.stuttgarter-zeitung.de/media.media.9ca6ab91-ea15-4a8b-ae48-4694e2a84006.16x9_1024.jpg">
-            https://www.stuttgarter-zeitung.de/media.media.9ca6ab91-ea15-4a8b-ae48-4694e2a84006.16x9_1024.jpg
-          </a>
-        </p>
-        <h4>Bilder mit falscher Klassifizierung</h4>
-        <p>
-          Pferd:
-          <a href="https://www.pferdefluesterei.de/wp-content/uploads/2014/09/Quarter_Horse_Slider.jpg">
-            https://www.pferdefluesterei.de/wp-content/uploads/2014/09/Quarter_Horse_Slider.jpg
-          </a>
-          <br>
-          Rakete:
-          <a href="https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2020/11/copernicus_sentinel-6_lifts_off_on_a_spacex_falcon_9_rocket/22340698-1-eng-GB/Copernicus_Sentinel-6_lifts_off_on_a_SpaceX_Falcon_9_rocket_pillars.jpg">
-            https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2020/11/copernicus_sentinel-6_lifts_off_on_a_spacex_falcon_9_rocket/22340698-1-eng-GB/Copernicus_Sentinel-6_lifts_off_on_a_SpaceX_Falcon_9_rocket_pillars.jpg
-          </a>
-          <br>
-          Birne:
-          <a href="https://www.genial-geniessen.com/wp-content/uploads/2020/05/Emotion-Birne-600x600.jpg">
-            https://www.genial-geniessen.com/wp-content/uploads/2020/05/Emotion-Birne-600x600.jpg
-          </a>
-        </p>
-      </div>
-    </div>
+      <div class="col card">
+        <div class="card-body">
+          <h2 class="card-title">Model Properties</h2>
 
-    <script src="js/plot.js"></script>
-    <script src="js/classification.js"></script>
-  </body>
+          <label for="numberLayers" id="numberLayersLabel" class="form-label">Amount of Layers: </label>
+          <input type="range" class="form-range" min="1" max="12" step="1.0" id="numberLayers">
+          
+          <label for="numberEpochs" id="numberEpochsLabel" class="form-label">Amount of Epochs: </label>
+          <input type="range" class="form-range" min="1" max="1000" step="1.0" id="numberEpochs">
+          <div class="row">
+            <div class="col-6">
+              <label for="activationFunction" class="form-label">Choose Activation Function</label>
+              <select class="form-select" id="activationFunction" aria-label="Default select example">
+                <option value="elu">ELU</option>
+                <option value="relu">ReLU</option>
+                <option value="sigmoid">Sigmoid</option>
+                <option value="softmax">Softmax</option>
+              </select>
+            </div>
+            <div class="col-6">
+              <label for="optimizer" class="form-label">Choose Optimizer</label>
+              <select class="form-select" id="optimizer" aria-label="Default select example">
+                <option value="sgd">SGD</option>
+                <option value="adam">Adam</option>
+                <option value="momentum">Momentum</option>
+                <option value="adagrad">Adagrad</option>
+                <option value="adadelta">Adadelta</option>
+                <option value="adamax">Adamax</option>
+              </select>
+            </div>
+          </div>
+
+          <label for="learnRate" id="learnRateLabel" class="form-label">LearnRate: </label>
+          <input type="range" class="form-range" min="0.001" max="0.5" step="0.001" id="learnRate">
+
+          <div id="modelData"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
 </html>
