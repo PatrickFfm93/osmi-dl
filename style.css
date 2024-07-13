@@ -1,0 +1,18 @@
+#app {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+textarea {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+button {
+    margin: 5px;
+}
+
+#predictions {
+    margin-top: 20px;
+}

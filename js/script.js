@@ -1,155 +1,86 @@
-const amountOfTrainData = 100;
-const amountOfNeuronsInHiddenLayer = 100;
-const hiddenLayerActivationFunction = "relu";
-const lossFunction = "meanSquaredError";
-const optimizer = "adam";
-const learningRate = 0.01;
-const batchSize = 32;
-const epochs = 50;
-const noiseVariance = 0.05;
+// load the dataset data.txt
+const text = "../data.txt";
 
-// Funktion zur Datengenerierung
-function generateData(N, noiseVariance) {
-    const x = Array.from(tf.randomUniform([N], -2, 2).dataSync());
-    const y = x.map(xi => 0.5 * (xi + 0.8) * (xi + 1.8) * (xi - 0.2) * (xi - 0.3) * (xi - 1.9) + 1);
-    const yNoise = y.map(yi => yi + tf.randomNormal([1], 0, Math.sqrt(noiseVariance)).dataSync()[0]);
-    return { x, y, yNoise };
+// Tokenizer initialisieren und anpassen
+const tokenizer = new Tokenizer();
+tokenizer.fitOnTexts([text]);
+
+// Text in Sequenzen von Token umwandeln
+const sequences = tokenizer.textsToSequences([text])[0];
+
+// Token-Index und umgekehrter Index
+const wordIndex = tokenizer.wordIndex;
+const reverseWordIndex = Object.keys(wordIndex).reduce((acc, key) => {
+  acc[wordIndex[key]] = key;
+  return acc;
+}, {});
+
+// Eingabesequenzen und Zielwerte erstellen
+const sequenceLength = 5;
+const examples = [];
+const labels = [];
+
+for (let i = 0; i < sequences.length - sequenceLength; i++) {
+  const sequence = sequences.slice(i, i + sequenceLength);
+  const label = sequences[i + sequenceLength];
+  examples.push(sequence);
+  labels.push(label);
 }
 
-// Daten generieren
-const { x, y, yNoise } = generateData(amountOfTrainData, noiseVariance);
-const N = x.length;
-const halfN = Math.floor(N / 2);
+const xs = tf.tensor2d(examples);
+const ys = tf.tensor1d(labels, 'int32');
 
-// Daten in Trainings- und Testdatensätze aufteilen
-const indices = tf.util.createShuffledIndices(N);
-const trainIndices = indices.slice(0, halfN);
-const testIndices = indices.slice(halfN);
+const model = tf.sequential();
+model.add(tf.layers.embedding({inputDim: tokenizer.wordIndex.length + 1, outputDim: 50, inputLength: sequenceLength}));
+model.add(tf.layers.lstm({units: 100, returnSequences: true}));
+model.add(tf.layers.lstm({units: 100, returnSequences: false}));
+model.add(tf.layers.dense({units: tokenizer.wordIndex.length + 1, activation: 'softmax'}));
 
-const xTrain = [];
-const yTrain = [];
-const yTrainNoise = [];
-trainIndices.forEach(i => {
-    xTrain.push(x[i]);
-    yTrain.push(y[i]);
-    yTrainNoise.push(yNoise[i]);
-  });
+model.compile({
+  optimizer: tf.train.adam(0.01, batchSize = 32),
+  loss: 'sparseCategoricalCrossentropy',
+  metrics: ['accuracy'],
+});
 
-const xTest = [];
-const yTest = [];
-const yTestNoise = [];
-testIndices.forEach(i => {
-    xTest.push(x[i]);
-    yTest.push(y[i]);
-    yTestNoise.push(yNoise[i]);
-  });
+model.summary();
 
-// Funktion zur Erstellung des Modells
-function createModel() {
-    const model = tf.sequential();
-    model.add(tf.layers.dense({ units: amountOfNeuronsInHiddenLayer, activation: hiddenLayerActivationFunction, inputShape: [1] }));
-    model.add(tf.layers.dense({ units: amountOfNeuronsInHiddenLayer, activation: hiddenLayerActivationFunction }));
-    model.add(tf.layers.dense({ units: 1, activation: 'linear' }));
-    return model;
-}
-
-function createBestModel() {
-    const model = tf.sequential();
-    model.add(tf.layers.dense({ units: 100, activation: hiddenLayerActivationFunction, inputShape: [1] }));
-    model.add(tf.layers.dense({ units: 100, activation: hiddenLayerActivationFunction }));
-    model.add(tf.layers.dense({ units: 50, activation: hiddenLayerActivationFunction }));
-    model.add(tf.layers.dense({ units: 50, activation: hiddenLayerActivationFunction }));
-    model.add(tf.layers.dense({ units: 1, activation: 'linear' }));
-    return model;
-}
-
-// Funktion zum Kompilieren und Trainieren des Modells
-async function trainModel(model, xTrain, yTrain, epochs) {
-    model.compile({
-        optimizer: tf.train.adam(learningRate),
-        loss: lossFunction
+async function trainModel() {
+    const history = await model.fit(xs, ys, {
+      epochs: 50,  // Du kannst die Anzahl der Epochen anpassen
+      batchSize: 32,
+      callbacks: tf.callbacks.earlyStopping({monitor: 'loss'}),
     });
+    console.log('Training abgeschlossen');
+    console.log(history);
+  }
+  
+  trainModel();
 
-    const xs = tf.tensor1d(tf.util.flatten(xTrain));
-    const ys = tf.tensor1d(tf.util.flatten(yTrain));
-    return await model.fit(xs, ys, { epochs, batchSize: batchSize, shuffle: true });
-}
-
-// Vorhersagen und Plotten der Ergebnisse
-async function plotData(container, x, y, yPred, title) {
-    const values = x.map((xi, i) => ({ x: xi, y: y[i] }));
-    const predValues = x.map((xi, i) => ({ x: xi, y: yPred[i] }));
-    const series = ['Original', 'Predicted'];
-    const data = { values: [values, predValues], series };
-    tfvis.render.scatterplot(container, data, {
-        xLabel: 'x',
-        yLabel: 'y',
-        height: 300,
-        title
-    });
-}
-
-// Modelle trainieren und Plotten der Ergebnisse
-async function trainModelsAndPlot() {
-    const modelUnnoised = createModel();
-    const historyUnnoised = await trainModel(modelUnnoised, xTrain, yTrain, epochs);
-
-    const modelBestFit = createBestModel();
-    const historyBestFit = await trainModel(modelBestFit, xTrain, yTrainNoise, 150);
-
-    const modelOverfit = createModel();
-    const historyOverfit = await trainModel(modelOverfit, xTrain, yTrainNoise, 400);
-
-    const xsTest = tf.tensor1d(tf.util.flatten(xTest)); 
-    const yPredUnnoisedTrain = Array.from(modelUnnoised.predict(tf.tensor1d(tf.util.flatten(xTrain))).dataSync());
-    const yPredUnnoisedTest = Array.from(modelUnnoised.predict(xsTest).dataSync());
-
-    const yPredBestFitTrain = Array.from(modelBestFit.predict(tf.tensor1d(tf.util.flatten(xTrain))).dataSync());
-    const yPredBestFitTest = Array.from(modelBestFit.predict(xsTest).dataSync());
-
-    const yPredOverfitTrain = Array.from(modelOverfit.predict(tf.tensor1d(tf.util.flatten(xTrain))).dataSync());
-    const yPredOverfitTest = Array.from(modelOverfit.predict(xsTest).dataSync());
-
-    // Plot original and noisy data
-    const seriesTrain = xTrain.map((xi, i) => ({ x: xi, y: yTrain[i] }));
-    const seriesTest = xTest.map((xi, i) => ({ x: xi, y: yTest[i] }));
-    tfvis.render.scatterplot(
-        document.getElementById('original-data'),
-        { values: [seriesTrain, seriesTest], series: ['train', 'test']},
-        { xLabel: 'x', yLabel: 'y', height: 300 }
-    );
-    const seriesTrainNoisy = xTrain.map((xi, i) => ({ x: xi, y: yTrainNoise[i] }));
-    const seriesTestNoisy = xTest.map((xi, i) => ({ x: xi, y: yTestNoise[i] }));
-    tfvis.render.scatterplot(
-        document.getElementById('noisy-data'),
-        { values: [seriesTrainNoisy, seriesTestNoisy], series: ['train', 'test']},
-        { xLabel: 'x', yLabel: 'y', height: 300 }
-    );
-
-    // Plot model predictions
-    await plotData(document.getElementById('unnoised-model-train'), xTrain, yTrain, yPredUnnoisedTrain, 'Unnoised Model - Train Data');
-    await plotData(document.getElementById('unnoised-model-test'), xTest, yTest, yPredUnnoisedTest, 'Unnoised Model - Test Data');
-    await plotData(document.getElementById('best-fit-model-train'), xTrain, yTrainNoise, yPredBestFitTrain, 'Best Fit Model - Train Data');
-    await plotData(document.getElementById('best-fit-model-test'), xTest, yTestNoise, yPredBestFitTest, 'Best Fit Model - Test Data');
-    await plotData(document.getElementById('overfit-model-train'), xTrain, yTrainNoise, yPredOverfitTrain, 'Overfit Model - Train Data');
-    await plotData(document.getElementById('overfit-model-test'), xTest, yTestNoise, yPredOverfitTest, 'Overfit Model - Test Data');
-
-    // Plot training history
-    tfvis.show.history(
-        document.getElementById('unnoised-model-hist'),
-        historyUnnoised,
-        ['loss']
-    );
-    tfvis.show.history(
-        document.getElementById('best-fit-model-hist'),
-        historyBestFit,
-        ['loss']
-    );
-    tfvis.show.history(
-        document.getElementById('overfit-model-hist'),
-        historyOverfit,
-        ['loss']
-    );
-}
-
-trainModelsAndPlot();
+  function sample(preds, temperature = 1.0) {
+    preds = tf.div(preds, tf.scalar(temperature));
+    const expPreds = tf.exp(preds);
+    const probs = expPreds.div(tf.sum(expPreds));
+    const probArray = probs.dataSync();
+    const cumProbs = probArray.map((p, i) => probArray.slice(0, i + 1).reduce((a, b) => a + b, 0));
+    const rand = Math.random();
+    return cumProbs.findIndex(p => p > rand);
+  }
+  
+  async function generateText(startSeed, length = 20, temperature = 1.0) {
+    let result = startSeed;
+    let input = tokenizer.textsToSequences([startSeed])[0].slice(-sequenceLength);
+  
+    for (let i = 0; i < length; i++) {
+      const inputTensor = tf.tensor2d([input], [1, sequenceLength]);
+      const preds = model.predict(inputTensor);
+      const nextIndex = sample(preds, temperature);
+      const nextWord = reverseWordIndex[nextIndex];
+  
+      result += ' ' + nextWord;
+      input = input.slice(1).concat(nextIndex);
+    }
+  
+    return result;
+  }
+  
+  generateText("Ein Beispieltext").then(text => console.log(text));
