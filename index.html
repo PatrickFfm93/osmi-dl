@@ -1,25 +1,53 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wortvorhersage mit LSTM</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis"></script>
-    <script src="js/script.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@600&family=Orelega+One&display=swap" rel="stylesheet"> 
+    <!-- Import Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <!-- Import tensorflow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.1/dist/tf.min.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+    <title>EA 3</title>
 </head>
 <body>
-    <div id="app">
-        <h1>Wortvorhersage mit LSTM</h1>
-        <textarea id="inputText" rows="10" cols="50"></textarea>
-        <button onclick="predict()">Vorhersage</button>
-        <button onclick="continuePrediction()">Weiter</button>
-        <button onclick="autoPredict()">Auto</button>
-        <button onclick="stopAuto()">Stopp</button>
-        <button onclick="reset()">Reset</button>
-        <div id="predictions"></div>
+    <div class="container-xxl">
+    <h1>EA 3: Language Model mit LSTM</h1>
+    <nav>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="index.html">Start</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="documentation.html">Documentation</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="wordPredictionArea">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Wortvorhersage</h3>
+                <p>Schreibe einen Text. Nach fünf Worten beginnt das System die nächsten
+                    Worte vorzuschlagen.
+                </p>
+                <div class="input-group">
+                    <textarea id="textInput" class="form-control"></textarea>
+                </div>
+                <div class="d-grid gap-2 d-md-block" id="bestPredictions">
+                    <button class="btn btn-primary" type="button">Button</button>
+                    <button class="btn btn-primary" type="button">Button</button>
+                    <button class="btn btn-primary" type="button">Button</button>
+                    <button class="btn btn-primary" type="button">Button</button>
+                    <button class="btn btn-primary" type="button">Button</button>
+                </div>
+            </div>
+        </div>
     </div>
+    <script src="./js/script.js"></script>
 </body>
 </html>
-    
