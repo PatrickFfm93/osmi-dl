@@ -18,7 +18,7 @@ let model;
 function nextWord(words){
     const wordArray = words.slice(-WORD_COUNT);
     const encoded = tokenizerEncode(tokenizer_word, wordArray);
-    const tensorEncoded = tf.tensor(encoded, [1, 5]);
+    const tensorEncoded = tf.tensor(encoded, [1,5]);
     const pred = model.predict(tensorEncoded);
     (async function () {
         let data = await pred.data();
@@ -85,7 +85,8 @@ document.getElementById('reset').addEventListener('click', async event => {
     nextWordString = "";
     document.getElementById('prediction').disabled = true;
     document.getElementById('next').disabled = true;
-    document.getElementById('mostProbWords').innerHTML += "";
+    document.getElementById('auto').disabled = true;
+    document.getElementById('mostProbWords').innerHTML = "";
     model = await tf.loadLayersModel("model/model.json")
 });
 
