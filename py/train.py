@@ -21,7 +21,7 @@ def clean_text(doc):
     return tokens
 
 tokens = clean_text(text)
-word_count = 5
+word_count = 1
 word_count = word_count + 1
 lines = []
 

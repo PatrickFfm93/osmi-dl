@@ -13,6 +13,6 @@ button {
     margin: 5px;
 }
 
-#predictions {
+#predictions, #documentation, #experimente {
     margin-top: 20px;
 }
