@@ -1,31 +1,16 @@
-const input = document.getElementById('textInput');
-// const bestPredictions = document.getElementById('bestPredictions');
-// const buttons = bestPredictions.children;
-var text;
-
-// buttons.forEach(button => {
-//     button.style.display ='none';
-//     button.addEventListener('click', event =>{
-//         text = input.value.trim();
-//         text = text.concat(' ' + button.innerHTML);
-
-//         const words = text.toLowerCase().split(" ");
-//         input.value = text;
-//         input.focus();
-//         nextWord(words);
-//     });
-// });
-
 const WORD_COUNT = 5;
 const MAX_AUTO_PREDICTIONS = 10;
-let autoMode = false;
-let autoModeCount = 0;
-
 const tokenizer_index = getJsonData('model/tokenizer_index_word.json');
 const tokenizer_word = getJsonData('model/tokenizer_word_index.json');
-let nextWordString = "";
 
-var model;
+const input = document.getElementById('textInput');
+
+let text;
+let autoMode = false;
+let autoModeCount = 0;
+let nextWordString = "";
+let model;
+
 (async function () {
     model = await tf.loadLayersModel("model/model.json");
 })();
@@ -42,7 +27,7 @@ function nextWord(words){
             temp[i] = data[i];
         }
         console.log(temp);
-        let mostProb = getLargestOfDict(temp, 5); // # in auto mode this could be 10
+        let mostProb = getLargestOfDict(temp, 5);
         let mostProbString = [];
         console.log(mostProb);
         document.getElementById('mostProbWords').innerHTML = "";
