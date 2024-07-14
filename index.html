@@ -60,23 +60,23 @@
                     <h2 class="card-title">Experimente</h2>
                     <h3 class="card-title">Netzwerkarchitektur</h3>
                     <p>Experimentieren Sie mit der Netzwerkarchitektur. Dokumentieren und begründen Sie Ihre finale Architektur.</p>
-                    <p>Zunächst wurde das Modell bzw. das Netzwerk entsprechend der Aufgabenstellung aufgebaut. Allerdings wurde mit den Epochen experimentiert. Es hat sichg ezeigt, dass 4090 Epochen 
-                        ein Wert sind, bei welchem der Loss und Genauigkeit in einem guten Rahmen waren, möglicherweise mit noch mehr Epochen besser. Allerdings war die Trainignsdauer
-                        mit 400 Epochen noch vertretbar.
+                    <p>Zunächst wurde das Modell bzw. das Netzwerk entsprechend der Aufgabenstellung aufgebaut. Mit den Epochen wurde jedoch experimentiert. Es stellte sich heraus, dass 400 Epochen 
+                        ein Wert ist, bei dem der Verlust und die Genauigkeit in einem guten Bereich liegen, möglicherweise noch besser bei noch mehr Epochen. Allerdings war die Trainingszeit
+                        mit 400 Epochen noch akzeptabel.
                     </p>
                     <h3 class="card-title">Analyse Resultate</h3>
                     <p>Notieren Sie als Resultat, wie oft die Vorhersage genau richtig ist (k=1), und wie oft das korrekte nächste Wort unter den ersten k Worten, die sie vorhersagen liegt, mit k gleich 5, 10, 20 und 100. Sie können auch die Perplexity (siehe Hintergrund) als Maß Ihrer Resultate nutzen.</p>
-                    <p>Getestet wurde dies mit deutschen Sprichwörter, welches leider nicht zu guten Ergebnissen führte. Dies führe ich auf den sehr kleinen Datensatz zurück,
-                        welche zudem noch relativ speziell ist, da es sich um ein zufällig gewähltes Buch von 1915 handelt. Zum größten Teil lag das gesuchte Wort überhaupt nicht unter
+                    <p>Dies wurde mit deutschen Sprichwörtern getestet, was leider nicht zu guten Ergebnissen führte. Ich führe dies auf den sehr kleinen Datensatz zurück,
+                        der zudem relativ speziell ist, da es sich um ein zufällig ausgewähltes Buch aus dem Jahr 1915 handelt. In den meisten Fällen war das gesuchte Wort überhaupt nicht unter den
                         den vorgeschlagenen Wörtern.                         
                     </p>
                     <h3 class="card-title">Datenschutz</h3>
                     <p>Können Sie Ihre ursprünglichen Trainingsdaten mittels des trainierten Models rekonstruieren?  (überlegen Sie, ob sich daraus ein Datenschutzproblem ergibt).</p>
                     <p>Mit den richtigen Eingaben können Teile der Trainingsdaten wiederhergestellt werden. Damit ist zumindest eine teilweise
-                        Rekonstruktion möglich. Aus datenschutzrechtlicher Sicht ist es somit möglich, Werke zu erzeugen, die dem ursprünglichen Werk zumindest ähnlich sind.
-                        ähnlich sind. Dies ist auch bei LLMs und anderen generativen KI-Systemen zu beachten. Datenschutz ist daher beim Einsatz von KI bzw.
-                        Modellen immer zu berücksichtigen, sowohl die Eingabe von Daten in ein solches System als auch die daraus
-                        Datenschutzes zu prüfen.
+                        Rekonstruktion möglich. Aus datenschutzrechtlicher Sicht ist es damit möglich, Werke zu erzeugen, die dem ursprünglichen Werk zumindest ähnlich sind.
+                        ähnlich sind. Dies ist auch bei LLMs und anderen generativen KI-Systemen zu beachten. Der Datenschutz ist daher bei der Verwendung von KI oder
+                        Modellen immer zu berücksichtigen, sowohl bei der Eingabe von Daten in ein solches System als auch bei der Entnahme von Daten aus einem solchen System.
+                        Datenschutz zu beachten.
                     </p>
                 </div>
             </div>
@@ -98,10 +98,10 @@
                     <div id="modelsummary"></div>
                     <br><br>
                     <h3 class="card-title">Erzeugung und Training des Modells</h3>
-                    <p>Bei meinen Recherchen zu dieser Aufgabe habe ich festgestellt, dass es im Falle von LSTM-Modellen sinnvoll ist, diese vorzubereiten
+                    <p>Bei meinen Recherchen zu dieser Aufgabe habe ich festgestellt, dass es im Falle von LSTM-Modellen sinnvoll ist, diese vorzubereiten und dann auf einer Webseite zu verwenden.
                         und dann auf einer Webseite zu verwenden. Deshalb habe ich mich für diesen Weg entschieden. 
-                        Mit Grund für diese Entschiedung war Tensorflow innerhalb des Moduls "Deep Learning" auch in Python zu erproben und dennoch im Web zu verwenden. 
-                        Selbstverständlich ist es auch möglich LSTM in TensorflowJS ohne Python zu nutzen. Das Modell wurde also in Python geschrieben (train.py). Dabei
+                        Ein Grund für diese Entscheidung war, Tensorflow innerhalb des Moduls "Deep Learning" auch in Python zu testen und trotzdem im Web verwenden zu können. 
+                        Natürlich ist es auch möglich LSTM in TensorflowJS ohne Python zu verwenden.. Dabei wurden
                         Tensorflow und Keras verwendet. Anschließend wurde das Modell in ein Format exportiert, das von TensorflowJS verwendet werden kann.
                         Dieses Modell wurde dann in die eigentliche Webseite importiert und für die Wortvorhersage verwendet.
                     </p>
