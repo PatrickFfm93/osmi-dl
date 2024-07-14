@@ -73,7 +73,7 @@
                     <p></p>
                     <h3 class="card-title">Datenschutz</h3>
                     <p>Können Sie Ihre ursprünglichen Trainingsdaten mittels des trainierten Models rekonstruieren?  (überlegen Sie, ob sich daraus ein Datenschutzproblem ergibt).</p>
-                    <p>MMit den richtigen Eingaben können Teile der Trainingsdaten wiederhergestellt werden. Damit ist zumindest eine teilweise
+                    <p>Mit den richtigen Eingaben können Teile der Trainingsdaten wiederhergestellt werden. Damit ist zumindest eine teilweise
                         Rekonstruktion möglich. Aus datenschutzrechtlicher Sicht ist es somit möglich, Werke zu erzeugen, die dem ursprünglichen Werk zumindest ähnlich sind.
                         ähnlich sind. Dies ist auch bei LLMs und anderen generativen KI-Systemen zu beachten. Datenschutz ist daher beim Einsatz von KI bzw.
                         Modellen immer zu berücksichtigen, sowohl die Eingabe von Daten in ein solches System als auch die daraus
@@ -89,11 +89,13 @@
                     <h3 class="card-title">Beschreibung</h3>
                     <p>In dieser Webanwendung wird das vorhersagen von Wörtern in einem Fließtext dargestellt. Der Nutzer kann einen Text eingeben.
                     Ab dem fünften Wort werden Worte vorgeschlagen aus denen der Nutzer wählen kann oder er schreibt einfach weiter. Bei jedem 
-                    Drücken der Space-Taste werden neue worte vorgeschlagen. Das Model wurde durch den Text "Fechsung" von Peter Altenberg (aus 1915) 
-                    trainiert. Dieses Werk hat ca 54.925 Worte von denen gut 6.484 einzigartig sind. <br>
+                    Drücken der Space-Taste werden neue worte vorgeschlagen. Das Model wurde durch eine zufällige Auswahl an Texten aus dem German-language E-Mail corpus
+                    trainiert. Die Auswahl besteht aus 138.666 Wörtern von denen 17.949 einzigartig (unique) sind. Es wurde versucht ein größeres Datenset zu wählen. 
+                    Dies konnte auf Grund meiner zur Verfügung stehnden Hardware allerdings nicht verarbeitet werden. Auch das Verändern der Batch-Size, wie es im Internet
+                    empfohlen wird, hat hier nur wenig geholfen. Daher wurde ein kleines Datenset (siehe Anzahl Wörter) verwendet. <br>
                     Das Model wurde so trainiert, dass es aus den letzten fünf Worten die nächsten Worte vorhersagt.
                     </p>
-                    <h3 class="card-title">Model (mit 400 epochen trainiert)</h3>
+                    <h3 class="card-title">Model (mit 400 epochen trainiert, bei einer Batch-Size von 100)</h3>
                     <div id="modelsummary"></div>
                     <br><br>
                     <h3 class="card-title">Erzeugung und Training des Modells</h3>
@@ -112,8 +114,6 @@
                         <li><a href="https://getbootstrap.com/">Bootstrap</a></li>
                     </ul>
                     <h3 class="card-title">Quellen</h3>
-                    <p>Text: <a href="https://www.projekt-gutenberg.org/altenbrg/fechsung/titlepage.html">Fechsung von Peter Altenberg</a></p>
-
                     <p>Text: <a href="https://github.com/codealltag/CodEAlltag_pXL_GERMAN/tree/master">German-language E-Mail corpus</a></p>
                 </div>
             </div>
