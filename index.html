@@ -60,12 +60,9 @@
                     <h2 class="card-title">Experimente</h2>
                     <h3 class="card-title">Netzwerkarchitektur</h3>
                     <p>Experimentieren Sie mit der Netzwerkarchitektur. Dokumentieren und begründen Sie Ihre finale Architektur.</p>
-                    <p>Zunächst wurde das Modell bzw. das Netzwerk entsprechend der Aufgabenstellung aufgebaut. Insbesondere wurden dann die
-                        Eingangsdaten experimentiert. Zunächst wurde ein relativ kleiner Datensatz verwendet, der weder hinsichtlich der Modellparameter (geringe Genauigkeit und hoher Verlust)
-                        und hoher Loss) noch bei den Tests mit der Website überzeugen konnte. Daher wurde dann ein größerer Datensatz verwendet, wodurch die
-                        Ergebnisse verbessert werden konnten. Außerdem wurde mit den Epochen experimentiert, wobei zunächst sehr viele Epochen (400) verwendet wurden und anschließend
-                        Anschließend wurde untersucht, mit welcher minimalen Anzahl von Epochen ein gutes Modell erzeugt werden kann. Dies sollte insbesondere das Training
-                        effizienter machen.
+                    <p>Zunächst wurde das Modell bzw. das Netzwerk entsprechend der Aufgabenstellung aufgebaut. Allerdings wurde mit den Epochen experimentiert. Es hat sichg ezeigt, dass 4090 Epochen 
+                        ein Wert sind, bei welchem der Loss und Genauigkeit in einem guten Rahmen waren, möglicherweise mit noch mehr Epochen besser. Allerdings war die Trainignsdauer
+                        mit 400 Epochen noch vertretbar.
                     </p>
                     <h3 class="card-title">Analyse Resultate</h3>
                     <p>Notieren Sie als Resultat, wie oft die Vorhersage genau richtig ist (k=1), und wie oft das korrekte nächste Wort unter den ersten k Worten, die sie vorhersagen liegt, mit k gleich 5, 10, 20 und 100. Sie können auch die Perplexity (siehe Hintergrund) als Maß Ihrer Resultate nutzen.</p>
