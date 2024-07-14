@@ -61,23 +61,23 @@
                     <h2 class="card-title">Experimente</h2>
                     <h3 class="card-title">Netzwerkarchitektur</h3>
                     <p>Experimentieren Sie mit der Netzwerkarchitektur. Dokumentieren und begründen Sie Ihre finale Architektur.</p>
-                    <p>Zunächst wurde das Modell bzw. Netzwerk nach den Vorgaben der Aufgabenstellung augebaut. Insbesondere wurde dann mit den
-                        Inputdaten experimentiert. Zunächst wurde ein relativ kleines Datenset verwendet, welches weder anhand der Modellparameter (niedrige Accuracy
-                        und hoher Loss), noch im Test mit der Webseite überzeugen konnte. Daher wurde dann ein größeres Datenset verwendet, wodurch die
-                        Ergebnisse verbessert werden konnten. Zudem wurde mit den Epochen experimentiert, wobei zunächst sehr viele Epochen (400) verwendet wurden und
-                        anschlißend geguckt, mit welcher Mindestanzahl an Epochen ein gutes Modell erzeugt werden konnte. Dies sollte insbesodnere das Training
-                        effizienter gestalten.
+                    <p>Zunächst wurde das Modell bzw. das Netzwerk entsprechend der Aufgabenstellung aufgebaut. Insbesondere wurden dann die
+                        Eingangsdaten experimentiert. Zunächst wurde ein relativ kleiner Datensatz verwendet, der weder hinsichtlich der Modellparameter (geringe Genauigkeit und hoher Verlust)
+                        und hoher Loss) noch bei den Tests mit der Website überzeugen konnte. Daher wurde dann ein größerer Datensatz verwendet, wodurch die
+                        Ergebnisse verbessert werden konnten. Außerdem wurde mit den Epochen experimentiert, wobei zunächst sehr viele Epochen (400) verwendet wurden und anschließend
+                        Anschließend wurde untersucht, mit welcher minimalen Anzahl von Epochen ein gutes Modell erzeugt werden kann. Dies sollte insbesondere das Training
+                        effizienter machen.
                     </p>
                     <h3 class="card-title">Analyse Resultate</h3>
                     <p>Notieren Sie als Resultat, wie oft die Vorhersage genau richtig ist (k=1), und wie oft das korrekte nächste Wort unter den ersten k Worten, die sie vorhersagen liegt, mit k gleich 5, 10, 20 und 100. Sie können auch die Perplexity (siehe Hintergrund) als Maß Ihrer Resultate nutzen.</p>
                     <p></p>
                     <h3 class="card-title">Datenschutz</h3>
                     <p>Können Sie Ihre ursprünglichen Trainingsdaten mittels des trainierten Models rekonstruieren?  (überlegen Sie, ob sich daraus ein Datenschutzproblem ergibt).</p>
-                    <p>Mit den richtigen Eingaben kann es dazu kommen, dass Teile der Trainingsdaten wieder entstehen. Somit ist zumindest eine teilweise
-                        Rekonstrultion möglich. Aus der Sicht des Datenschutz ist es somit möglich, dass Werke entstehen, welche dem Ursprungswerk zu mindest
-                        ähneln. DIes ist auch bei LLMs zu betrachten und anderen generativen KI-Systemen. Der Datenschutz ist somit bei der Nutzung von KI bzw.
-                        Modellen immer zu betrachten, sowohl Daten in ein solchen System hineinzugeben, als auch die resulktierenden Daten sind unter Gesichtspunkten
-                        des Datenschutz zu prüfen.
+                    <p>MMit den richtigen Eingaben können Teile der Trainingsdaten wiederhergestellt werden. Damit ist zumindest eine teilweise
+                        Rekonstruktion möglich. Aus datenschutzrechtlicher Sicht ist es somit möglich, Werke zu erzeugen, die dem ursprünglichen Werk zumindest ähnlich sind.
+                        ähnlich sind. Dies ist auch bei LLMs und anderen generativen KI-Systemen zu beachten. Datenschutz ist daher beim Einsatz von KI bzw.
+                        Modellen immer zu berücksichtigen, sowohl die Eingabe von Daten in ein solches System als auch die daraus
+                        Datenschutzes zu prüfen.
                     </p>
                 </div>
             </div>
@@ -97,13 +97,20 @@
                     <div id="modelsummary"></div>
                     <br><br>
                     <h3 class="card-title">Erzeugung und Training des Modells</h3>
-                    <p>Bei meinen Recherchen zu dieser Aufgabe bin ich darauf gestoßen, dass es im Fall von LSTM-Modellen Sinn macht diese vorzutrainieren
-                        und dann auf einer Webseite zu nutzen. Deshalb bin ich diesen Weg auch gegangen. So wurde das Modell in Python geschrieben (train.py). Hierbei
-                        kamen Tensorflow und Keras zum Einsatz. Anschließend wurde das Modell, in einem von TensorflowJS nutzbaren Format, exportiert.
-                        Dieses Modell wurde dann innerhalb der eigentlichen Webseite importiert und für die Wortvorhersage genutzt.
+                    <p>Bei meinen Recherchen zu dieser Aufgabe habe ich festgestellt, dass es im Falle von LSTM-Modellen sinnvoll ist, diese vorzubereiten
+                        und dann auf einer Webseite zu verwenden. Deshalb habe ich mich für diesen Weg entschieden. 
+                        Mit Grund für diese Entschiedung war Tensorflow innerhalb des Moduls "Deep Learning" auch in Python zu erproben und dennoch im Web zu verwenden. 
+                        Selbstverständlich ist es auch möglich LSTM in TensorflowJS ohne Python zu nutzen. Das Modell wurde also in Python geschrieben (train.py). Dabei
+                        Tensorflow und Keras verwendet. Anschließend wurde das Modell in ein Format exportiert, das von TensorflowJS verwendet werden kann.
+                        Dieses Modell wurde dann in die eigentliche Webseite importiert und für die Wortvorhersage verwendet.
                     </p>
                     <h3 class="card-title">Frameworks</h3>
-                    <p>tensorflow.js, bootstrap, keras, tensorflow</p>
+                    <ul>
+                        <li><a href="https://www.tensorflow.org/js">TensorflowJS</a></li>
+                        <li><a href="https://www.tensorflow.org/">Tensorflow</a></li>
+                        <li><a href="https://keras.io/">Keras</a></li>
+                        <li><a href="https://getbootstrap.com/">Bootstrap</a></li>
+                    </ul>
                     <h3 class="card-title">Quellen</h3>
                     <p>Text: <a href="https://www.projekt-gutenberg.org/altenbrg/fechsung/titlepage.html">Fechsung von Peter Altenberg</a></p>
 
